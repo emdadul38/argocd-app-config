@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pod-myapp
+  name: pod-myapp
+
+spec:
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: pod-myapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pod-myapp
+    spec:
+      containers:
+        - image: myapp:vd11.1.6
+          name: pod-myapp
+          imagePullPolicy: Always
+          command: ["node"]
+          args: ["./server/index.js"]
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 50m
+          ports:
+            - containerPort: 3000
