@@ -22,7 +22,7 @@ spec:
         app: pod-myapp
     spec:
       containers:
-        - image: myapp:vd11.1.6
+        - image: myapp:v1.0
           name: pod-myapp
           imagePullPolicy: Always
           command: ["node"]
